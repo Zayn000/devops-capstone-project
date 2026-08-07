@@ -138,3 +138,15 @@ if not account:
 account.deserialize(request.get_json())
 account.update()
 return account.serialize(), status.HTTP_200_OK
+
+######################################################################
+# DELETE AN ACCOUNT
+######################################################################
+@app.route("/accounts/", methods=["DELETE"])
+def delete_accounts(account_id):
+"""Delete an Account"""
+app.logger.info("Request to delete an Account with id: %s", account_id)
+account = Account.find(account_id)
+if account:
+    account.delete()
+return "", status.HTTP_204_NO_CONTENT
